@@ -45,7 +45,7 @@ BMI: results.tex
 begin_table_begin_tabular_l__.tex
 figures/fa_effect_map/fa_effect_map.png
 figures/md_effect_map/md_effect_map.png
-begin_table_begin_tabular_r__.tex
+begin_table_resizebox_textwidth_begin__.tex
 section_Discussion_Our_study_did__.tex
 section_Conclustion_In_this_study__.tex
 BMI: appendix.tex
