@@ -1,12 +1,13 @@
 \begin{table} 
     \begin{tabular}{ l | c c c }
         features used & # latent variables & R\textsuperscript{2} & p value \\
-        \hline
+        \toprule
         cortical thicknesses & 2 & 0.024 & 0.0012 \\
         cortical thicknesses \& age & 3 & 0.045 & 0.0003 \\
         tract diffusion metrics & 6 & 0.2 & \textless 1e-4 \\
         tract diffusion metrics \& age & 6 & 0.19 & \textless 1e-4 \\
         thicknesses \& diffusion metrics & 6 & 0.18 & \textless 1e-4 \\
+        \bottomrule
     \end{tabular} 
     \caption{\label{tab:PLSmodels} How well cortical and WM features fit the data using the PLS regression model.} 
 \end{table}
