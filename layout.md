@@ -1,5 +1,5 @@
 untitled.tex
-chapter_Background_lable_ch_Background__.tex
+chapter_Background_section_Diffusion_MRI__.tex
 section_Modeling_the_Diffusion_Signal__.tex
 figures/Slide19/Slide19.png
 The_diffusion_tensor_model_assumes__.tex
