@@ -26,8 +26,8 @@ figures/image3/figure3.png
 begin_table_caption_label_tabIMsimEstimate__.tex
 figures/image4/figure4.png
 subsection_Human_Data_The_results__.tex
-section_Discussion_Our_results_show__.tex
 figures/image5/image5.png
+section_Discussion_Our_results_show__.tex
 section_Conclusion_We_have_demonstrated__.tex
 tracking - intro.tex
 tracking - models.tex
