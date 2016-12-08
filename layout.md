@@ -23,6 +23,7 @@ figures/image1/image1.png
 figures/image2/image2.png
 begin_table_caption_label_tab__.tex
 figures/image3/figure3.png
+Even_though_the_SH_noise__.tex
 subsection_Simulation_Results_In_simulation__.tex
 begin_table_caption_label_tabIMsimEstimate__.tex
 figures/image4/figure4.png
