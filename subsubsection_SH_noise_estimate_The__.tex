@@ -1,35 +1,18 @@
 \subsubsection{SH noise estimate}
+
 The third method for estimating noise amplitudes evaluated in this study
 is the same as the above method, except the spherical harmonic (SH)
-functions are substituted for the tensor as the diffusion model. The SH
-functions can be used as a frequency space representation of functions
-defined on the sphere, analogous to the Fourier series for 1D
-functions \cite{Hess_2006}. The SH functions form an orthonormal basis of
-functions on the sphere, thus any complex-valued function on the sphere
-can be represented as a sum of SH functions as follows
-
-\begin{equation}
-y(g_i) = \sum_{l=0}^{\inf} \sum_{m=-l}^l{c_{l,m}Y_{l,m}(g_i)}
-\end{equation}
-
-where $c_{l,m}$ are the coefficients associated with each of the SH functions $Y_{l,m}$ of degree $l$ and order $m$, and $g_i$ is a unit vector. Even though the SH functions
+functions are substituted for the tensor as the diffusion model. Even though the SH functions
 are not a diffusion model, when truncated at a maximum SH order, they
-can be used as a model for residual bootstrap purposes.
-
-The diffusion MRI signal has two properties that can be exploited to
-refine this model. First, the signal is known to exhibit antipodal
-symmetry, thus does not have any contribution from the antipodally
-asymmetric SH functions (those with odd degree) \cite{17911030}.
-Second, the signal is known to be real-valued. These signal properties
-allow us to use a set of real valued SH functions with even degree.
-Because there are even degree SH functions with degree less than or
-equal to, we can define a set of real valued, even SH functions where
+can be used as a model for residual bootstrap purposes. Because the diffusion signal
+is real valued and antipodally symmetric we can use the real valued spherical harmonic functions
+defined in equation \ref{eqn:realSH}. The signal equation in terms of these SH functions is:
 
 \begin{equation}
-X
+y(g_i) = \sum_{n=0}^{\inf} \sum_{m=-n}^l{c_{nm}Y_{nm}(g_i)}
 \end{equation}
 
-The diffusion signal expressed in terms of a truncated SH series becomes:
+where $c_{nm}$ are the coefficients associated with each of the SH functions $Y_{nm}$ of degree $n$ and order $m$, and $g_i$ is a unit vector. It can often be useful to use a single index for the SH functions. We can replace the degree and order with a new single index $j$ and express the signal equation as:
 
 \begin{equation}
 y(g_i) = \sum_{j=1}^N{c_jY_j(g_i) + e_i}
@@ -41,7 +24,7 @@ or
 y = Xc + e
 \end{equation}
 
-where the matrix $X$ is defined $X_{ij} = Y_j(g_i)$ , $c = \{c_1, c_2, ..., c_N\}$ and is a vector of coefficients. These
+where the matrix $X$ is defined $X_{ij} = Y_j(g_i)$ , and $c = \{c_1, c_2, ..., c_N\}$ is a vector of coefficients. These
 coefficients can be efficiently estimated using a least squares method
 and take the form $c = (X^TX)^{-1}X^Ty$.
 
