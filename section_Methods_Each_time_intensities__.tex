@@ -17,6 +17,7 @@ Imaging in Python (Dipy), an open source software library \cite{Garyfallidis_201
 
 \subsection{Theory}
 \subsubsection{B0 noise estimate}
+
 The first method we evaluated is the simplest and does not use a
 bootstrap procedure. Repeating an entire MRI study is impractical, but
 it is common practice to acquire multiple minimally diffusion weighted
@@ -26,6 +27,7 @@ variance across these images. In this paper, we refer to noise amplitude
 estimated in this manner as the b0 noise estimate.
 
 \subsubsection{Tensor noise estimate}
+
 The second and third methods we evaluated are both residual bootstrap
 methods, but employ different models. Residual bootstrap methods have
 been used to estimate uncertainties in metrics derived from diffusion \cite{Chung_2006, Haroon_2009} and to inform fiber tracking \cite{17911030}. These methods work by generating bootstrap data sets, which are
