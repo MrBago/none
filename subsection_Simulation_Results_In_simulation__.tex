@@ -20,24 +20,3 @@ insufficient to represent the data and overestimates the noise. At a
 b-value of 3000, for example, the median DTI estimates of noise
 amplitudes are 1.19 and 1.41 at SNR 18 and 25 respectively.
 
-Even though the SH noise estimation performs well in simulation, it is
-important to consider the impact of the SH order on the quality of the
-noise estimate. The noise estimate is a sample statistic that is
-computed using a finite sample from the noise distribution. Assuming the
-noise distribution is a standard normal distribution, the expected
-variance of a noise amplitude estimate computed with\(\text{\ d}\)
-degrees of freedom is \(\sqrt{\frac{2}{d}}\). This is the stochastic
-component of the RMS error, or the RMS error one would expect purely
-from random sampling effects (Figure \ref{fig:simGraph} red line). Because the number of
-degrees of freedom in the SH noise estimate go down as a function of SH
-order, we expect the RMS error to rise with SH order. Looking closely at
-Figure \ref{fig:simGraph}, one can see that the RMS error in the SH estimates (Figure \ref{fig:simGraph}
-green lines) closely match the analytically predicted stochastic RMS
-error (Figure \ref{fig:simGraph} red line) begging with SH order 4. Where the two lines
-match, the only source of error in the SH estimate is sampling. At SH
-order 2, the model does not fit the data well and produces an
-overestimate for the noise amplitude and a high RMS error. This effect
-is larger at higher b-value because the signal is composed of more high
-order SH content. In order to minimize RMS error in the noise estimate a
-SH order must be chosen to balance accurate model fitting with
-preserving more degrees of freedom for the noise estimate.
