@@ -13,7 +13,6 @@ figures/Screen Shot 2016-12-01 at 4.17.15 PM/Screen Shot 2016-12-01 at 4.17.15 P
 figures/Screen Shot 2016-12-06 at 2.31.51 PM/Screen Shot 2016-12-06 at 2.31.51 PM.png
 section_Fiber_Tracking_Each_of__.tex
 figures/Screen Shot 2016-12-07 at 9.53.04 PM/Screen Shot 2016-12-07 at 9.53.04 PM.png
-Fiber_tracking_begins_with_a__.texabstract.tex
 chapter_Bootstraping_for_Noise_Noise__.tex
 section_Methods_Each_time_intensities__.tex
 subsubsection_SH_noise_estimate_The__.tex
@@ -22,9 +21,8 @@ section_Results_Overall_the_SH__.tex
 figures/image1/image1.png
 figures/image2/image2.png
 begin_table_caption_label_tab__.tex
-figures/image3/figure3.png
-Even_though_the_SH_noise__.tex
 subsection_Simulation_Results_In_simulation__.tex
+figures/image3/figure3.png
 begin_table_caption_label_tabIMsimEstimate__.tex
 figures/image4/figure4.png
 subsection_Human_Data_The_results__.tex
@@ -40,7 +38,6 @@ figures/Slide5/Slide5.png
 tacking-lt-direction getter.tex
 tracking - multivox dec.tex
 section_Streamline_Utilities_Tractography_can__.tex
-section_Appendix_subsection_Local_Tracking__.texabstract.tex
 bmi: intro - methods.tex
 figures/Slide1/Slide1.png
 Linear model tables.tex
