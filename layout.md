@@ -14,7 +14,7 @@ figures/Screen Shot 2016-12-06 at 2.31.51 PM/Screen Shot 2016-12-06 at 2.31.51 P
 section_Fiber_Tracking_Each_of__.tex
 figures/Screen Shot 2016-12-07 at 9.53.04 PM/Screen Shot 2016-12-07 at 9.53.04 PM.png
 Fiber_tracking_begins_with_a__.texabstract.tex
-section_Introduction_Noise_estimates_are__.tex
+chapter_Bootstraping_for_Noise_Noise__.tex
 section_Methods_Each_time_intensities__.tex
 subsubsection_SH_noise_estimate_The__.tex
 subsection_Simulation_Model_bootstrap_methods__.tex
