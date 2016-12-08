@@ -1,5 +1,6 @@
 \section{Appendix}
 \subsection{Effect Map}
+
     In this work we showed that BMI is associated with tract-wise white matter metrics and modeled that association using PLS regression. The PLS regression model can be projected back into image space in order to create an effect map. The effect map is a spacial representation of the PLS model and it can help unearth anatomical patterns in the white matter BMI association. This section defines the effect map.
 
     The PLS regression model can be used to predict an outcome variable $y_s$, for subject $s$, from a feature vectors $[x_{0s}, x_{1s}, ..., x_{Ns}]$ using the following equation. In this equation $L$ is the y loading and and $R$ is the x rotation matrix estimated by the PLS model. Also $\bar{y}$ and $\bar{x_i}$ are the population means of $y_s$ and $x_{is}$ respectively. Similarly, $\sigma_{y}$ and $\sigma_{x_i}$ are the standard deviations $y_s$ and $x_{is}$ respectively. These means and standard deviations are also estimated by the PLS model.
