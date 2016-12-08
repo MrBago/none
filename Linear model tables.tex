@@ -1,7 +1,7 @@
 \begin{table} 
     \begin{tabular}{l | c c c }
         & slope & R & p \\
-        \hline
+        \toprule
         age & 0.14 & 0.1 & 0.0051 \\
         gender & -0.52 & -0.05 & 0.16 \\
         total GM volume & 4.6e-07 & 0.0059 & 0.87 \\
@@ -10,6 +10,7 @@
         total sub-cortical GM volume & 2.2e-05 & 0.024 & 0.51 \\
         fractional anisotropy & -27 & -0.083 & 0.021 \\
         mean diffusivity & -5.6e+04 & -0.17 & 2.4e-06 \\
+        \bottomrule
         \end{tabular} 
     \caption{\label{tab:basic} This table shows the result of predicting BMI with each of the regressor independently using a linear regression. Gender, total GM and WM volumes as well as cortical and sub-cortical GM volumes were not correlated with BMI in our population. Age, FA, and MD showed a small, but statistically significant association with BMI.} 
 \end{table}
@@ -17,10 +18,11 @@
 \begin{table} 
     \begin{tabular}{ l | c c }
         &t value & p value \\
-        \hline
+        \toprule
         age & 1.1 & 0.27 \\
         fractional anisotropy & -4.6 & 5.5e-06 \\
         mean diffusivity & -5.9 & 4.2e-09 \\ 
+        \bottomrule
     \end{tabular} 
     \caption{\label{tab:linearmodel} A linear model for BMI using age, fractional anisotropy and mean diffusivity as features. The $R^2$ value for this model was .06. When these features are modeled together, the association between age and BMI is no longer statistically significant.} 
 \end{table}
