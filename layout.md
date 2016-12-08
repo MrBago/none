@@ -6,7 +6,7 @@ The_diffusion_tensor_model_assumes__.tex
 subsection_QBall_Imaging_and_HARDI__.tex
 figures/Spherical_Harmonics/Spherical_Harmonics.png
 This_series_is_particularly_useful__.tex
-section_Constrained_Spherical_Deconvolution_The__.tex
+subsection_Constrained_Spherical_Deconvolution_The__.tex
 subsection_Multi_tissue_Constrained_Spherical__.tex
 figures/Screen Shot 2016-12-01 at 4.14.49 PM/Screen Shot 2016-12-01 at 4.14.49 PM.png
 figures/Screen Shot 2016-12-01 at 4.17.15 PM/Screen Shot 2016-12-01 at 4.17.15 PM.png
