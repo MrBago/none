@@ -1,0 +1,25 @@
+This series is particularly useful for q-ball imaging because the Funk radon transform of each SH basis function has an analytical form. Applying the Funk radon transform to any of the SH functions results in a scaled version of the same functions. As a consequence, any function expressed as coefficients to the SH series also has an analytical form. Take for example a function $f$ defined in terms of the coefficients $\hat{f}(n, m)$, where the spherical harmonic of order $m$ and degree $n$ is given as $Y_n^m$.
+    
+\begin{equation}
+f(\vec{u}) = \sum_{n=0}^{\inf}\sum_{m=-n}^{n}{\hat{f}(n, m) Y_n^m(\vec{u})}
+\end{equation}
+
+The Funk radon transform of this function can be written in terms of the SH functions and the Legendre polynomials, $P_n$.
+
+\begin{equation}
+F[f(\vec{u})] = \sum_{n=0}^{\inf}P_n(0)\sum_{m=-n}^{n}{\hat{f}(n, m)  Y_n^m(\vec{u})}
+\end{equation}
+
+With a closed form equation for the Funk radon transform, the ODF of a diffusion MRI signal can be easily computed if the diffusion signal can be be estimated as a SH series. In practice, the full SH series is not used to fit the signal because two properties of the diffusion signal allow us to restrict the coefficients. First, because both the signal and the ODF are known to be be even, or antipodally symmetric, only the even degrees of the SH series need to be used. That is to say, the coefficients of the odd degree SH functions are known to be zero. Second, both the diffusion signal and ODF are known to be real-valued functions. This constraint allows to one use a set of real values SH functions, which still represent an orthonormal basis over functions defined on the sphere, but which can represent real valued functions only using real valued coefficients. This choice allows the implementation of q-ball imaging without the use of complex numbers, but is mathematically equivalent to using the standard SH functions and  enforcing conjugate symmetry in the coefficients. One definition for the real SH functions is given here $Y^R_{nm}$.
+
+\begin{equation}
+\label{eqn:realSH}
+Y^R_{nm} = \begin{cases} \sqrt{2} \cdot Im[Y_n^m] &\mbox{if } m > 0 \\
+Y_n^0 &\mbox{if } m = 0 \\
+\sqrt{2} \cdot Re[Y_n^{|m|}] &\mbox{if } m < 0 \end{cases}.
+\end{equation}
+
+The SH series must be truncated at a finite degree. It's common to choose the maximum SH degree to be either 6 or 8. The following chapter discusses in more detail some of the considerations that go into picking the maximum SH degree for modeling the diffusion signal. The diffusion signal can now be expressed as $\vec{e} = Z_g\vec{c}_{e}$ where $\vec{c}_{e}$ is a vector of coefficients, $Z_g$ is a matrix such that each row represents the truncated SH series evaluated using the directions of the diffusion gradients, and $\vec{e}$ is some invertible function of the diffusion signals\cite{Hess_2006}. In order to estimate the diffusion ODF, an inverse of $Z_g$, denoted $Z_g^{\dagger}$, must be computed. The Moore-Penrose pseudoinverse works well works well if the SH degree is truncated at a relatively low value, however inverting $Z_g$ using a Laplace-Beltrami regularization has been proposed in order to allow higher SH degrees to be used without numerical instability \cite{Descoteaux_2007}. The ODF, represented as SH coefficients, can be estimated as, $\vec{c_{ODF}} = PZ_g^{\dagger}\vec{e}$, where $P$ is the diagonal matrix associated with the Funk radon transform. The diagonal elements of $P$ consist of the appropriate Legendre polynomial evaluated for each SH function. This formulation makes q-ball imaging powerful because the ODF can be computed directly from the diffusion signal, without the need for numerical estimation methods.
+
+
+% end

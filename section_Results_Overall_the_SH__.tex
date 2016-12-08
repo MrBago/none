@@ -1,0 +1,18 @@
+\section{Results}
+
+Overall, the SH noise estimates and noise maps were the most accurate
+and most precise. Figure \ref{fig:axEstimate} and \ref{fig:corEstimate} show a qualitative comparison of the
+noise maps produced by the 4 single-acquisition methods along side the
+repetition ground truth for human data at b-value of 3000. It is clear
+from visual comparison of the four noise maps that the SH noise map (C)
+most closely matches the ground truth (A). The DTI noise map (B)
+captures some of the features present in the repetition ground truth,
+however it overestimates the noise amplitude in several regions. The B0
+noise map (D) is too grainy to capture any of the fine features in the
+ground truth noise map. The B0 noise estimation method may still be
+useful as a global estimate of the average noise amplitude in an image,
+but it is not useful as a noise map. The noise maps produced using the
+non-local means filtering (E) also had a tendency to overestimate the
+noise specific tissue regions. In the next section, we present a
+quantitative analysis of accuracy and precision of the 4
+single-acquisition noise estimation methods.

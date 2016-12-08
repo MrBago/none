@@ -1,0 +1,114 @@
+\subsubsection{SH noise estimate}
+The third method for estimating noise amplitudes evaluated in this study
+is the same as the above method, except the spherical harmonic (SH)
+functions are substituted for the tensor as the diffusion model. The SH
+functions can be used as a frequency space representation of functions
+defined on the sphere, analogous to the Fourier series for 1D
+functions \cite{Hess_2006}. The SH functions form an orthonormal basis of
+functions on the sphere, thus any complex-valued function on the sphere
+can be represented as a sum of SH functions as follows
+
+\begin{equation}
+y(g_i) = \sum_{l=0}^{\inf} \sum_{m=-l}^l{c_{l,m}Y_{l,m}(g_i)}
+\end{equation}
+
+where $c_{l,m}$ are the coefficients associated with each of the SH functions $Y_{l,m}$ of degree $l$ and order $m$, and $g_i$ is a unit vector. Even though the SH functions
+are not a diffusion model, when truncated at a maximum SH order, they
+can be used as a model for residual bootstrap purposes.
+
+The diffusion MRI signal has two properties that can be exploited to
+refine this model. First, the signal is known to exhibit antipodal
+symmetry, thus does not have any contribution from the antipodally
+asymmetric SH functions (those with odd degree) \cite{17911030}.
+Second, the signal is known to be real-valued. These signal properties
+allow us to use a set of real valued SH functions with even degree.
+Because there are even degree SH functions with degree less than or
+equal to, we can define a set of real valued, even SH functions where
+
+\begin{equation}
+X
+\end{equation}
+
+The diffusion signal expressed in terms of a truncated SH series becomes:
+
+\begin{equation}
+y(g_i) = \sum_{j=1}^N{c_jY_j(g_i) + e_i}
+\end{equation}
+
+or
+
+\begin{equation}
+y = Xc + e
+\end{equation}
+
+where the matrix $X$ is defined $X_{ij} = Y_j(g_i)$ , $c = \{c_1, c_2, ..., c_N\}$ and is a vector of coefficients. These
+coefficients can be efficiently estimated using a least squares method
+and take the form $c = (X^TX)^{-1}X^Ty$.
+
+The bootstrap samples are created using leverage-corrected and centered
+residuals. The raw residuals can be computed as
+
+\begin{equation}
+e = y - Xc
+\end{equation}
+\begin{equation}
+e = y - X(X^TX)^{-1}X^Ty
+\end{equation}
+\begin{equation}
+e = y - Hy = (I - H)y
+\end{equation}
+
+where $H = X(X^TX)^(-1)X^T$ and $I$ is the identity matrix. The SH fitting is linear, so the
+leverage correction term can be computed directly from $H$. The
+leverage-corrected residuals are
+
+\begin{equation}
+r_i = \frac{e_i}{\sqrt{1 - h_i}}
+\end{equation}
+
+where $h_i = H_{ii}$ are the diagonal entries of the hat matrix. The leverage-corrected residual vector $r$ can also be written as
+
+\begin{equation}
+r = L(I - H)y
+\end{equation}
+
+where $L$ is a diagonal matrix such that $L_{ii} = 1 / \sqrt(1 - h_i)$. The centered residuals are defined as $q_i = r_i - \hat{r}$ or equivalently
+
+\begin{equation}
+q = C_NL(I - H)y
+\end{equation}
+
+where the centering matrix is defined as $C_N = 1 - \frac{1}{N}\vec{1}\vec{1}^T$. $q^*$ is created by sampling from $q$
+with replacement and the bootstrap data sets is defined as
+
+$S^* = Xc + q^*$
+
+The noise amplitude of the diffusion signal can be estimated by taking
+the variance of these bootstrap samples. We refer to the noise amplitude
+estimated in this way as the SH noise estimate. In practice, we don't
+need to generate bootstrap samples $S*$ if we notice that $E[var(S*)] = \frac{1}{N - 1}var(q)$. Also, the matrix $C_NL(I - H)$
+can be computed a-priori, so the computation of the SH noise estimate in
+each voxel is reduced to two operations, a matrix multiplication and the
+computation of variance.
+
+\subsubsection{Non-local means noise estimate}
+The fourth method we evaluated for estimating noise maps was the
+application of non-local means filter\cite{Coupe_2008}. This
+de-noising filter has proven to be a valuable tool for improving data
+quality of dMRI images before diffusion models are fit to the data or
+fiber tracking is performed. By taking the difference between the noisy
+data and the denoised data, we compute a set of residuals, which can be
+used to generate a voxelwise noise map. Because non-local means
+filtering requires the average noise amplitude as an input, it needs to
+be used along with another noise estimation method. For this study, we
+were only interested in the quality of the noise maps, so we used the
+known noise amplitude measured from the ground truth data set as the
+input. This procedure gives an upper bound, best possible result, for
+the non-local means noise estimation method because in practice the
+average noise must be computed from the data and may have some error. In
+order to produce noise maps from the non-local means residuals, the
+residuals must be scaled so that the average noise amplitude matches the
+expected value. This step replaces the leverage correction step of the
+other methods \cite{davison1997bootstrap}.
+After scaling, the non-local means noise maps can be compared directly
+to the ground truth noise maps.

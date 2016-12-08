@@ -1,0 +1,104 @@
+\section{Discussion}
+
+Our results show that using a SH model to estimate noise maps for HARDI
+data is more accurate and more precise than using a DTI model or using
+the currently available b0 and non-local means methods. The accuracy of
+the noise map is mostly independent of the SH order used, provided that
+a sufficiently large order is used. However, the precision of the
+estimate does depend on the choice of SH order. Even though the SH model
+noise estimate is better than the tensor or B0 estimates, we did observe
+some discrepancy between SH noise estimate and the ground truth noise
+measured by repeated data acquisition, not all of which can be explained
+by stochastic variation. The simulation we used to estimate the expected
+stochastic RMS error is conservative and we would not expect to achieve
+that level of precision, even under ideal conditions. However, we
+believe the precision of the noise maps may be improved if better eddy
+current correction and image alignment methods are used in the
+processing of the raw data. The repeated gradient acquisition data we
+used for our ground truth noise measurement has very consistent
+alignment. The consistent alignment is not surprising because each of
+the repeated images is impacted by the same eddy current distortions. On
+the other hand, the data used to produce the bootstrap noise estimates
+has visibly worse alignment between the images. The areas where
+misregistration is most pronounced are consistent with the areas of
+largest differences between the noise estimate and the ground truth.
+While we explored possible parameters for improving the alignment, the
+simple eddy current correction method we used is not capable of fully
+correcting the eddy current distortions present in this kind of data.
+
+Other factors may also contribute to differences between the ground
+truth noise measurement and the bootstrap noise estimates, but it is
+important to note that there is no evidence that model failure is one of
+these factors when sufficiently high SH order is used. This is in
+contrast to the DTI method, where there is strong evidence for model
+failure. In the presence of model failure, the bootstrap procedure
+overestimates the residuals and overestimates the variance in the metric
+of interest. In this case, we would expect a model failure to result in
+a positive bias, or an overestimate, of the noise amplitude. The DTI
+results show an overestimation of the median noise. The noise maps show
+that this overestimation is not uniform over the image, but most
+predominant in the white matter regions where we expect crossing voxels.
+Additionally, the SH model produces a lower noise estimate in these
+regions, which is consistent with the expectation that the SH model can
+better represent crossing voxels. The SH model shows evidence of model
+failure at order 2 and order 4 for b=3000. However, there is no evidence
+of model failure at higher SH orders. In the presence of model failure,
+we expect the median noise estimate and RMS error to decrease as higher
+SH order models decrease the model failure.
+
+In this study, we have focused on noise estimation for single shell
+q-ball data, however these methods could still be useful for studies
+that acquired multi-shell diffusion acquisitions. The noise in each
+shell could be analyzed independently using these methods as long as
+there were at least about 20 gradients acquired in each shell. This
+approach is the simplest and would work for acquisitions where imaging
+parameters are adjusted independently for each shell to maximize SNR at
+each shell. The disadvantage of treating each shell independently is
+that model parameters must be fit resulting in a noise estimate with
+fewer degrees of freedom. To avoid this one could use one of the several
+recently published methods that use SH functions to fit multi-shell
+data \cite{Jeurissen_2014}. Because
+these methods make additional assumptions about the nature of the data
+being modeled, they would need to be validated independently, but that
+work is outside the scope of this paper.
+
+Understanding which combination of model and parameters produces the
+best voxelwise noise map is important not only for accurately estimating
+noise, but also for choosing the right bootstrap procedure in other
+applications. In recent years, many new models for characterizing
+diffusion profiles in brain tissue have been proposed. Many of these
+models, such as NODDI\cite{Zhang_2012} or CHARMED\cite{Assaf_2005},
+require complex non-linear fitting of the diffusion data. Residual
+bootstrap methods could be used to estimate the standard errors produced
+by these models, but bootstrapping the models directly is not practical
+because leverage correcting the residuals produced by these models is
+impractical or impossible. However, one could use a different model to
+produce bootstrap datasets and then apply the model of interest to those
+datasets in order to estimate standard errors in the model parameters or
+metrics. The quality of an estimate produced using a bootstrap procedure
+depends on how well that procedure can generate bootstrap samples that
+are representative of the distribution from which the data is sampled.
+Any bootstrap sample that represents the underlying data distribution
+should, at minimum, be able to estimate the variance (or noise) of that
+distribution. Therefore, when picking a bootstrap procedure for any dMRI
+application, one should consider how well that procedure estimates the
+imaging noise.
+
+While this study demonstrates that noise maps can be estimated from dMRI
+acquisitions, how well the methods presented here perform may depend
+somewhat on the MRI acquisition sequence used and the biological
+characteristics of the tissue being imaged. Two important criteria are
+required for model residual bootstrap methods to be effective. First,
+the model must be a reasonably accurate representation of the diffusion
+characteristics of the biological tissue. Our results indicate that the
+tensor model fails at high b-values, causing the noise to be
+overestimated. While the SH model has similar accuracy over a b-value
+dependent range of orders, the lowest order in that range provides best
+precision in the noise estimates. The second criterion for accurate
+noise estimation is that the imaging noise must be approximately
+normally distributed. MRI imaging noise is generally believed to have a
+Rician distribution that can be approximated as normal when the SNR is
+sufficiently high. Therefore this criterion is satisfied for most dMRI
+data sets. However, data sets that approach the noise floor will result
+in some bias in the noise estimates due to violation of the normally
+distributed noise assumption.

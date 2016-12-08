@@ -1,0 +1,63 @@
+\subsection{Human Data}
+
+The results using real-world data largely mirror those we see in the
+simulation. As shown in Table \ref{tab:humanEstimate} and Figure \ref{fig:axEstimate}, the noise estimate using
+the SH model of order 6 is consistently more accurate and more precise
+than that of the DTI model; the median estimate is closer to 1.0 and the
+RMS error is lower. Unlike the simulation, accuracy of the estimate
+obtained using the SH model does show some b-value dependence, but not
+as much as the DTI model. The magnitude of this b-value dependence is
+similar to that observed in the B0 noise estimate. The RMS error in the
+voxelwise noise estimates obtained using the B0 method is substantially
+higher than the RMS error associated with the DTI or SH models. While
+the B0 method produces a fairly accurate estimate, the average estimated
+noise amplitude is close to 1.0, the high RMS error means this method
+does not produce useful noise maps (Figure \ref{fig:axEstimate} D). The noise maps produced
+using non-local means filtering overestimated the noise in boundary
+regions between tissues. The overestimate can be seen in the noise maps
+and results in a higher RMS error compared to the ground truth noise
+map. The SH noise estimates and noise maps were the most accurate and
+most precise, but similar to the simulation results, the SH order
+influences precision of SH noise estimates.
+
+Figure \ref{fig:humanGraph} shows the accuracy and precision of the SH noise estimates as a
+function of SH order. We see that the accuracy (Figure \ref{fig:humanGraph} blue line) of
+the SH noise estimate does not change substantially once a sufficiently
+high SH order is used. In order to measure the precision of the noise,
+we use the repetition ground truth as a reference. We define the RMS
+error to be the root mean square error between the noise estimate and
+the noise amplitude measured from the repetition data set. Lastly, we
+can estimate the stochastic component of the RMS error using
+simulations. The RMS error of the noise estimates as a function of SH
+order (Figure \ref{fig:humanGraph} green line) predicted the expected stochastic error
+depicted by the red line. The RMS error of the noise estimates show a
+minimum at SH order 4 for b-values 1000 and 2000, and a minimum at SH
+order 6 for b-value of 3000. After the minimum, the RMS error increases
+with SH order. The RMS error in the SH estimates (Figure \ref{fig:humanGraph} green line)
+was higher than the stochastic RMS error we predicted using simulation
+(Figure \ref{fig:humanGraph} red line). This means that not all the error in the noise
+estimate can be explained by sampling variation, and other sources of
+error are present in the estimate. However, the two lines show the same
+trend and sampling variation does explain the increase in RMS error and
+decrease in estimate precision as a function of SH order.
+
+The precision difference between the noise estimates produced using low
+and high order SH models can be seen by comparing the respective noise
+maps. Figure \ref{fig:perSHOrder} shows axial and coronal slices from three noise maps
+estimated using SH orders 4 (B), 14 (C) and 16 (D) compared to the
+ground truth noise map generated from repeated measurements (A). The SH
+order 6 (B) estimate is visibly smoother than higher order estimates and
+more fine detail is visible in this lower order noise map. For example,
+the outline of the Globus Pallidus (in the red box) is visible in the
+ground truth noise map (A) and this structure has visibly lower noise
+amplitude than the surrounding tissues. This structure has similar
+detail in the SH order 6 estimate (B), but in the SH order 14 (C) and 16
+(D) estimates the structure becomes progressively harder to resolve.
+This is not surprising because the precision of the noise estimates
+defines the level of contrast in the noise maps. The SH order 6, 14 and
+16 estimates have 152, 60, and 27 degrees of freedom respectively. SH
+harmonic order 8 is commonly used to fit SH functions to HARDI data. In
+order to produce noise maps with a matching number of degrees of freedom
+to B, C and D in Figure \ref{fig:perSHOrder} with a SH order 8 model, one would need to
+acquire 198, 106, and 73 linearly independent diffusion gradient
+directions respectively.

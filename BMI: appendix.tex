@@ -1,0 +1,69 @@
+\section{Appendix}
+\subsection{Effect Map}
+    In this work we showed that BMI is associated with tract-wise white matter metrics and modeled that association using PLS regression. The PLS regression model can be projected back into image space in order to create an effect map. The effect map is a spacial representation of the PLS model and it can help unearth anatomical patterns in the white matter BMI association. This section defines the effect map.
+
+    The PLS regression model can be used to predict an outcome variable $y_s$, for subject $s$, from a feature vectors $[x_{0s}, x_{1s}, ..., x_{Ns}]$ using the following equation. In this equation $L$ is the y loading and and $R$ is the x rotation matrix estimated by the PLS model. Also $\bar{y}$ and $\bar{x_i}$ are the population means of $y_s$ and $x_{is}$ respectively. Similarly, $\sigma_{y}$ and $\sigma_{x_i}$ are the standard deviations $y_s$ and $x_{is}$ respectively. These means and standard deviations are also estimated by the PLS model.
+    
+\begin{equation} \label{eqn:PlsEqn}
+\hat{y_s} = \displaystyle\sigma_y\sum_c\sum_i{L_c R_{ic} \frac{x_{is} - \bar{x_i}}{\sigma_{x_i}}} + \bar{y}
+\end{equation}
+
+By switching the order of the summations we can consolidate some of the terms and simplify the equation.
+
+\begin{equation}
+\hat{y_s} = \displaystyle\sum_i\ \frac{\sigma_y}{\sigma_{x_i}} \sum_c{ L_c R_{ic} (x_{is} - \bar{x_i})} + \bar{y}
+\end{equation}
+
+We can combine the contributes the rotation and loading terms of the PLS model for each feature $i$ into a single model coefficient $a_i$.
+
+\begin{equation}
+a_i = \displaystyle\frac{\sigma_y}{\sigma_{x_i}} \sum_c{ L_c R_{ic}}
+\end{equation}
+
+Now, we can represent $\hat{y}$ in terms of these model coefficients.
+
+\begin{equation}
+\hat{y_s} = \displaystyle\sum_i\ a_i (x_{is} - \bar{x_i}) + \bar{y}
+\end{equation}
+
+We can define also a constant $k$ to consolidate the terms with no dependence on $x_{is}$.
+
+\begin{equation}
+k = \bar{y} - \sum_i {a_i\bar{x_i}}
+\end{equation}
+
+\begin{equation}
+\hat{y_s} = \displaystyle\sum_i {a_i x_{is}} + k
+\end{equation}
+
+We have simplified the PLS prediction equation to a form that only requires a set of coefficients, $[a_0, a_1, ...]$ and a constant $k$ to predict BMI from tract based metrics. We can now expand the features because each feature is the average value of a metric, MD for example, along a white matter tract in the brain. Each feature $x_{is}$ can be expressed as a sum over $m_{sv}$, the value of the metric at voxel $v$, and $d_{isv}$, the density tract $i$ at voxel $v$.
+
+\begin{equation} \label{eqn:defineXis}
+x_{is} = \displaystyle\frac{\sum_v {d_{isv} m_{sv}}}{\sum_v {d_{isv}}}
+\end{equation}
+
+Using the expression for $x_{is}$ in equation \ref{eqn:defineXis}, we can express the prediction for $\hat{y}$ as a sum over the voxels of an image.
+
+\begin{equation} \label{eqn:useXis}
+\hat{y_s} = \displaystyle\sum_i {a_i \frac{\sum_v {d_{isv} m_{sv}}}{\sum_v {d_{isv}}}} + k
+\end{equation}
+
+If we change the order of summation in equation \ref{eqn:useXis}, we get the following.
+
+\begin{equation} \label{eqn:almostThere}
+\hat{y_s} = \displaystyle\sum_v{\frac{  \sum_i{ a_i d_{isv}}}{\sum_v {d_{isv}}} m_{sv}} + k
+\end{equation}
+
+From equation \ref{eqn:almostThere} we can consolidate terms into an effect value $E_{sv}$. The effect value for each voxel $v$ is the a sum of the model coefficients for each tract associated with that voxel, weighted by how much that voxel contributes to that tract.
+
+\begin{equation}
+E_{sv} = \frac{\sum_i{ a_i d_{isv}}}{\sum_v {d_{isv}}}
+\end{equation}
+
+The prediction of $\hat{y_s}$ can now be expressed in terms of the effect values and metric map. 
+
+\begin{equation}
+\hat{y_s} = \displaystyle\sum_v{ E_{sv} m_{sv}} + k
+\end{equation}
+
+When represented as an image, we refer the effect values $E_{sv}$ as an effect map. The effect map is in essence a set of weights which, when combined with a metric map, can predict the outcome variable for a subject $s$. Each subject has a unique effect map because the effect map is derived from the tract densities, $d_{isv}$, specific to that subject. To compute a population average effect, we normalized the effect maps of each subject into a standard space, MNI space, and averaged across subjects.

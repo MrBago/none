@@ -1,0 +1,42 @@
+\section{Introduction}
+
+Noise estimates are widely used in image processing tools to evaluate
+image quality and to estimate signal to noise ratio (SNR). Advanced
+analysis methods use noise estimates to inform data-driven inferences.
+The robust model fitting method RESTORE, for example, uses a noise
+estimate to reject outlier data during the model fitting process. Noise
+in an MRI image is typically estimated using the signal variance in a
+region that is expected to have uniform signal. These types of simple
+noise estimation methods fail in the presence of modern imaging and
+reconstruction methods. More advanced methods have been proposed to
+measure noise in images acquired using parallel imaging, but these
+methods have their own limitations. For example, two recent methods
+utilize the raw data to estimate the noise \cite{Robson_2008, Kellman_2005}, but because these methods work with raw data, they must be implemented as part of the
+vendors' reconstruction algorithm or the raw data must be saved for post
+hoc analysis. Other noise estimation methods have been proposed which
+overcome these limitations by analyzing the statistical properties of
+the intensities in the image background \cite{19346143, 27845653}. These
+background methods rely on the known statistical properties of
+background voxels, voxels made up primarily of air. These methods
+simultaneously identify which voxels belong to the background and
+estimate the noise amplitude. One major limitation of these background
+methods is that they greatly underestimate the noise if a reconstruction
+filter is used or if other post processing steps change the statistical
+distribution of the background voxels\cite{Dietrich_2007}. In general,
+past methods were not developed specifically for dMRI and each of the
+methods has limitations that must be considered before its use in dMRI
+applications.
+
+In this work, we present and evaluate several methods for estimating
+spatially varying noise in high angular resolution diffusion imaging
+(HARDI) data sets. To our knowledge, this work demonstrates the first
+method to estimate voxelwise noise maps for dMRI data sets. We focus on
+HARDI scans because they can be completed in clinically practice
+acquisitions time and they also support the use of many standard and
+advanced diffusion models, for example DTI, Q-ball \cite{Tuch_2004}
+ or constrained spherical deconvolution (CSD) \cite{Tournier_2007}. Because the
+methods we present estimate noise maps directly from signal regions in
+the image, they produce detailed noise maps in addition to an overall
+noise estimate. In this paper, we compare the noise maps produced by each
+of the four methods to simulated and measured noise maps to evaluate the
+accuracy and precision of each of the four methods.

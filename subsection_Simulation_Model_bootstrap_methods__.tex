@@ -1,0 +1,63 @@
+\subsection{Simulation}
+
+Model bootstrap methods work well when the model assumptions are
+satisfied, but tend to overestimate residuals when the model assumptions
+are violated. In this application, the extent to which model assumptions
+are violated depends on the b-value, the SH order, and the SNR of the
+data. In order to understand the performance of the two bootstrap
+methods as a function of these choices, we used a simulation of two
+equal-sized fibers crossing at 90 degrees. We simulated each of the two
+fibers using a tensor model with FA of .7 and mean diffusivity of .5 $cm^2/sec$. To simulate Rican noise, we added samples from a
+standard normal distribution (\(\mu = 0\), \(\sigma = 1\)) in both the
+real and complex channels to this simulated signal, and then computed
+the amplitudes. To vary the SNR, we scaled the signal and held the
+simulated noise amplitude constant at 1. At each SNR and b-value, we
+simulated 10,000 independent acquisitions. The simulations were done
+using the same b-values and 181-direction gradient table, as were used
+for acquiring the human subject data. The simulations for this study
+were performed using the Diffusion Imaging in Python (Dipy) software
+library \cite{Garyfallidis_2014}.
+
+\subsection{Data collection}
+
+A human subject was scanned on a 3T Siemens Skyra MRI scanner after
+obtaining informed consent per the requirements of our local
+institutional review board. The human subject was scanned to acquire 6
+total data sets: a repetition data set and a HARDI data set at each
+b-value (b=1000, 2000, and 3000 \(\frac{s}{mm^{2}}\)). For each b-value,
+the repetition data set consisted of 3 gradient directions acquired 80
+times each, along with 7 images with no diffusion weighting. Each HARDI
+data set consisted of 181 non-collinear gradient directions and 7 images
+with no diffusion weighting. All images were acquired at 2.2mm isotropic
+resolution, TR = 3s, using a multiband factor of 2.
+
+We used a motion and eddy current correction scheme similar to the
+method employed by FSL's ``eddy\_correct''. This correction scheme
+registers all the diffusion-weighted images to a reference to compensate
+for scaling and shearing introduced by eddy and subject motion during
+the scan. In order to compare voxelwise between the HARDI and repetition
+data sets, we combined the b0 images from the two data sets to make one
+reference image. This method produced one eddy correction reference for
+each of the 3 b-values acquired. To produce this reference, we first
+averaged all b0 images from the two data sets. We then registered those
+same b0 images to the average image, and computed the average transform
+to ensure that all images are moved as little as possible. We then used
+this image as the reference for our motion and eddy current correction.
+The end result of this process was a repetition and a HARDI data set
+that were eddy-corrected and co-registered to each other. The repetition
+data set was made up of repeated signal measurements along three
+gradient directions. By taking the variance of the repeated measurements
+at each voxel and averaging the three results, we created the ``ground
+truth noise maps''. Noise maps were also estimated from the HARDI data
+sets using each of the candidate methods described. Even though we do
+not refer to the ground truth noise maps as estimates for brevity and
+clarity, they are in fact estimates as well and when comparing the
+candidate noise maps to the ground truth noise maps, one must account
+for the standard error in both noise maps. For our quantitative
+comparisons of the different noise estimates to the ground truth noise
+maps, we limited the analysis to a brain tissue mask. The brain tissue
+mask was created by first fitting a tensor model to each of the data
+sets and taking the voxels with fractional anisotropy (FA) greater than
+.1 and axial diffusivity less than 2 \(\frac{cm^{2}}{s}\). We then
+performed binary erosion to the result to produce the final brain tissue
+mask.

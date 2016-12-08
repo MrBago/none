@@ -1,0 +1,116 @@
+\section{Methods}
+
+Each time intensities of an image are measured, a noise sample is drawn
+from a particular, unknown noise distribution. For the purposes of this
+study, we attempt to measure the variance of this distribution, termed
+``noise amplitude'', for each voxel. When an MRI sequence is repeated,
+the noise amplitude can be estimated directly from these repeated
+acquisitions. This approach, however, is not practical for either
+clinical or research applications; if there is extra time in a study for
+dMRI, the addition of gradient directions or b-values is usually
+preferred over repeating the same sequence. This study, therefore,
+focuses on methods that are able to estimate the noise amplitude from a
+single typical HARDI acquisition. This section describes the four
+specific methods tested in this study. The noise estimation methods
+described in this study will be made available as part of Diffusion
+Imaging in Python (Dipy), an open source software library \cite{Garyfallidis_2014}.
+
+\subsection{Theory}
+\subsubsection{B0 noise estimate}
+The first method we evaluated is the simplest and does not use a
+bootstrap procedure. Repeating an entire MRI study is impractical, but
+it is common practice to acquire multiple minimally diffusion weighted
+images (b0 images) in a typical dMRI sequence. If multiple b0 images are
+available, a noise map can be estimated from the observed signal
+variance across these images. In this paper, we refer to noise amplitude
+estimated in this manner as the b0 noise estimate.
+
+\subsubsection{Tensor noise estimate}
+The second and third methods we evaluated are both residual bootstrap
+methods, but employ different models. Residual bootstrap methods have
+been used to estimate uncertainties in metrics derived from diffusion \cite{Chung_2006, Haroon_2009} and to inform fiber tracking \cite{17911030}. These methods work by generating bootstrap data sets, which are
+analogous to simulated data acquisitions. These bootstrap data sets can
+then be used to make inferences about the distribution from which the
+data was sampled. In this study, we applied these methods to infer the
+underlying variance of the diffusion imaging noise distribution.
+
+One model we used for generating bootstrap data sets was the diffusion
+tensor. Our implementation closely follows the description given by
+Chung et. al. and is briefly described here. The diffusion signal is
+modeled as
+
+\begin{equation}
+S(g_i) = S_0e^{-bg_i^TDg_i}
+\end{equation}
+
+where $S(g_i)$ is the diffusion signal measured with gradient $g_i$, $S_0$ is the signal
+with no diffusion weighting, $b$ is the diffusion weighting, $D$ and is the diffusion tensor. We use this model to generate bootstrap data sets
+using the following method. The tensor equation can be re-written in the
+common linear regression form as
+
+\begin{equation}
+y = X\beta + \epsilon
+\end{equation}
+
+where $y=[ln(\frac{S(g_2)}{S_0}), ln(\frac{S(g_1)}{S_0}), ..., ln(\frac{S(g_N)}{S_0})]$ is the log of the normalized measured signals, $X$ is the design
+matrix derived from the gradient table, and $\beta$ is the parameter vector to
+be fit (composed of the 6 unique elements of the diffusion tensor), and $\epsilon = [\epsilon_1, \epsilon_2, ..., \epsilon_N]$
+is the set of model residuals. It has been shown that weighted linear
+least squares (WLLS) outperforms ordinary least squares (OLS) for
+fitting the diffusion tensor model \cite{Veraart_2013}. The weighted least squares estimate of $\beta$ is
+
+\begin{equation}
+\hat{\beta} = (X^TWX)^{-1}X^TWy
+\end{equation}
+
+where $W$ is a diagonal matrix of weights such that
+
+\begin{equation}
+W_{ii} = \hat{S}_i^2
+\end{equation}
+
+\begin{equation}
+\hat{S}_i = S_0e^{\hat{\mu}^{OLS}_i}
+\end{equation}
+
+\begin{equation}
+\hat{\mu}^{OLS} = Hy
+\end{equation}
+
+\begin{equation}
+H = (X^TX)^{-1}XT
+\end{equation}
+
+The matrix $H$ is often called the hat matrix. In order to use this fit to
+generate bootstrap data sets, a set of centered, leverage-corrected
+residuals must be computed. The raw residuals are given as
+
+\begin{equation}
+e = y - X\hat{\beta}
+\end{equation}
+
+The centered, leverage-corrected residuals $q$ are given as
+
+\begin{equation}
+r_i = \frac{e_i}{w_i^{-1/2}(1-h_i)^{1/2}}
+\end{equation}
+
+\begin{equation}
+q_i = r_i - \bar{r}
+\end{equation}
+
+where $w_i$ and $h_i$ are the diagonal elements of the $W$ and $H$ matrices, respectively. A bootstrap data set, $y^*$, is produced by randomly drawing values from $q$ for $\epsilon^*$ (with replacement). This is given by
+
+\begin{equation}
+y^*_i = x_i\hat{\beta} + w_j^{-1/2}\epsilon^*
+\end{equation}
+
+\begin{equation}
+S^*(g_i) = S_0e^{y_i^*}
+\end{equation}
+
+Once bootstrap datasets have been generated from the diffusion data set,
+the noise amplitude at each voxel can be estimated by taking the
+variance of the bootstrap data sets for that voxel. In this paper, we
+refer to noise amplitude estimated in this manner as the DTI noise
+estimate.
