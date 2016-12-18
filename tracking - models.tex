@@ -4,17 +4,17 @@ The first step in any diffusion MRI analysis, after pre-processing is complete, 
 It's also important to consider the requirements of the application when picking a model. While a given data set might support more complex modeling, if the goal of the project is identify large, well defined white matter tracts in the brain, then the additional complexity and computational cost associated with a more complex model might not be justified. However, if the goal is to model areas of the cerebral white matter with finer structures and axonal crossings, than a simple model like DTI will simply fail to capture the underlying complexity of the biological architecture. The choice of model is often a subtle decision that can only be made empirically. Dipy aims to aid the user in the task of choosing the right models by providing a model API so that users can run the same tracking and analysis methods using different models in order to compare results.
 
 \subsection{Model and Fit Classes}
-Models in dipy serve two related functions. First a model can be used to fit diffusion MRI signals and estimate model parameters. Second, some dipy models provide a \verb|predict| method, which allows the model to predict diffusion MRI signals from model parameters. Here is a formal description of the model and fit interfaces in Dipy.
+Models in dipy serve two related functions. First a model can be used to fit diffusion MRI signals and estimate model parameters. Second, some dipy models provide a \ttext{predict} method, which allows the model to predict diffusion MRI signals from model parameters. Here is a formal description of the model and fit interfaces in Dipy.
 
 \begin{enumerate}
 \item The model class.
 \begin{enumerate}
 \item Models classes are initialized with any required parameters to create model instances. In this context, a gradient table is considered a parameter and should be passed to the model in the constructor.
-\item Models should have a \verb|fit| method. The \verb|fit| method should return a fit object, meaning an instance of a fit class.
+\item Models should have a \ttext{fit} method. The \ttext{fit} method should return a fit object, meaning an instance of a fit class.
 \begin{enumerate}
-\item The \verb|fit| method should take two parameters: data and mask. Data is an array of diffusion MRI signals and mask is a binary array where True values identify the non-background voxels of the image.
+\item The \ttext{fit} method should take two parameters: data and mask. Data is an array of diffusion MRI signals and mask is a binary array where True values identify the non-background voxels of the image.
 \end{enumerate}
-\item The model may have a \verb|predict| method. The predict method should predict diffusion signals from model parameters.
+\item The model may have a \ttext{predict} method. The predict method should predict diffusion signals from model parameters.
 \begin{enumerate}
 \item The predict method should take two arguments: model parameters and a gradient table. The gradient table argument should be optional and the gradient table associated with the model should be used, by default.
 \end{enumerate}
@@ -23,10 +23,10 @@ Models in dipy serve two related functions. First a model can be used to fit dif
 \begin{enumerate}
     \item The fit class.
     \begin{enumerate}
-        \item Each fit object should have a \verb|model| attribute which will generally be the model object used to create the fit object.
-        \item The fit class may also have a \verb|predict| method. The predict method of the fit class does not take model parameters as an argument, instead it estimates a signal prediction based on the model parameters associated with the fit instance.
-        \item The fit object may have an \verb|odf| method which takes a \verb|Sphere| instance as an argument and returns an the Orientation Distrubtion Function estimated by the model and sampled on the vertices of the \verb|Sphere| instance. The \verb|odf| method is used for peak finding and fiber tracking.
-        \item The fit class may have attributes and methods specific to the model type which the fit represents. For example, a DTI fit has the attributes \verb|fa| and \verb|md| which are the fractional anisotropy and mean diffusivity, respectively, of the diffusion tensor.
+        \item Each fit object should have a \ttext{model} attribute which will generally be the model object used to create the fit object.
+        \item The fit class may also have a \ttext{predict} method. The predict method of the fit class does not take model parameters as an argument, instead it estimates a signal prediction based on the model parameters associated with the fit instance.
+        \item The fit object may have an \ttext{odf} method which takes a \ttext{Sphere} instance as an argument and returns an the Orientation Distrubtion Function estimated by the model and sampled on the vertices of the \ttext{Sphere} instance. The \ttext{odf} method is used for peak finding and fiber tracking.
+        \item The fit class may have attributes and methods specific to the model type which the fit represents. For example, a DTI fit has the attributes \ttext{fa} and \ttext{md} which are the fractional anisotropy and mean diffusivity, respectively, of the diffusion tensor.
     \end{enumerate}
 \end{enumerate}
 
