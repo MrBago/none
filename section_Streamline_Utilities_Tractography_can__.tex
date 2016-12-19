@@ -3,7 +3,7 @@
 Tractography can be used to identify connections between brain regions, estimate the path of specific connection or measure white matter tissue properties in a single subject brain. To facilitate these applications Dipy provides several utilities that transform streamline data. This section describes some of these utilities in more detail.
 
 \subsection{Connectivity Matrix}
-A connectivity matrix represents the streamlines that begin and end in two given tissue regions of the brain. To create a connectivity matrix one needs to start with a parcellation of the brain tissues. In this parcellation each tissue region is represented by a unique, non-negative integer value. The zero value is usually reserved for background and non-brain tissues. This tissue parcellation can then be combined with the result of the local tracking output to produce a connectivity matrix. This example shows a typical use of the \texttt{connectivity_matrix} function. Here we return both the matrix, the number of streamlines that connect two regions, and the mapping. The mapping is a dictionary of the streamlines that connect every pair of regions. Each streamline is represented in the matrix and the mapping exactly once, and for every tissue region \texttt{i} and \texttt{j}, \texttt{matrix[i, j] == len(mapping[i, j])}.
+A connectivity matrix represents the streamlines that begin and end in two given tissue regions of the brain. To create a connectivity matrix one needs to start with a parcellation of the brain tissues. In this parcellation each tissue region is represented by a unique, non-negative integer value. The zero value is usually reserved for background and non-brain tissues. This tissue parcellation can then be combined with the result of the local tracking output to produce a connectivity matrix. This example shows a typical use of the \ttext{connectivity_matrix} function. Here we return both the matrix, the number of streamlines that connect two regions, and the mapping. The mapping is a dictionary of the streamlines that connect every pair of regions. Each streamline is represented in the matrix and the mapping exactly once, and for every tissue region \ttext{i} and \ttext{j}, \ttext{matrix[i, j] == len(mapping[i, j])}.
 
 \begin{lstlisting}[language=python]
 from dipy.tracking.utils import connectivity_matrix
@@ -25,7 +25,7 @@ filtered_streamlines = target(intermediate_result, ROI2, affine=affine)
 
 \end{lstlisting}
 
-To exclude streamlines based on a ROI, the \texttt{include} keyword should be set to False. This example shows how one can one can select streamlines that intersect with ROI1 but do not intersect with ROI2.
+To exclude streamlines based on a ROI, the \ttext{include} keyword should be set to False. This example shows how one can one can select streamlines that intersect with ROI1 but do not intersect with ROI2.
 
 \begin{lstlisting}[language=python]
 from dipy.tracking.utils import target
@@ -50,7 +50,7 @@ output_streamlines = move_streamlines(streamlines, output_space=output_affine, i
 
 \subsection{Density Maps}
 
-A tractogram can be used to create a density map, sometimes called a track density image or TDI\cite{Calamante_2010, Calamante_2016}. Because the streamlines of a tractogram are defined in a 3d continuous space, density maps can be created at arbitrary resolution. When the resolution of the track density image is higher than the resolution of the diffusion MRI data used to create it, the density image is called a super resolution TDI \cite{Calamante_2016}. If the voxel size of TDI is smaller than the step size of the streamlines in the tractogram, subsegmenting the streamlines will produce a better quality TDI. In this example we combine the \texttt{subsegment} and \texttt{density_map} funtions to create a super resolution TDI.
+A tractogram can be used to create a density map, sometimes called a track density image or TDI\cite{Calamante_2010, Calamante_2016}. Because the streamlines of a tractogram are defined in a 3d continuous space, density maps can be created at arbitrary resolution. When the resolution of the track density image is higher than the resolution of the diffusion MRI data used to create it, the density image is called a super resolution TDI \cite{Calamante_2016}. If the voxel size of TDI is smaller than the step size of the streamlines in the tractogram, subsegmenting the streamlines will produce a better quality TDI. In this example we combine the \ttext{subsegment} and \ttext{density_map} funtions to create a super resolution TDI.
 
 \begin{lstlisting}[language=python]
 
